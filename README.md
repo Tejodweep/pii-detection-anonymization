@@ -1,4 +1,4 @@
-# PII Detection and Anonymization System
+# PII Detection and Anonymization 
 
 A  Personal Identifiable Information (PII) detection and anonymization system 
 that allows users to detect sensitive data using either:
