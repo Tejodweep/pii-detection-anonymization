@@ -30,10 +30,13 @@ The system can identify and anonymize entities such as emails, phone numbers, na
 - Names
 - Locations
 
-## Usage
+## Running Tests
 
-Run the program:
-python3 main.py
+### Regex mode
+python3 main.py --input data/input/sample.csv --output data/output/ --method regex
+
+### NLP mode
+python3 main.py --input data/input/sample.csv --output data/output/ --method nlp
 
 
 
