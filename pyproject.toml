@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "pii-detection-anonymization"
+version = "0.1.0"
+description = "A reusable PySpark library for detecting and masking PII (Personally Identifiable Information)."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+
+authors = [
+  { name = "Your Name", email = "you@example.com" }
+]
+
+keywords = ["pyspark", "pii", "data-engineering", "privacy", "nlp"]
+
+dependencies = [
+  "pyspark>=3.3.0",
+]
+
+[project.optional-dependencies]
+# Install spaCy support with:  pip install pii-detection-anonymization[nlp]
+nlp = [
+  "spacy>=3.5.0",
+]
+dev = [
+  "pytest>=7.0",
+  "pytest-mock",
+]
+
+[project.urls]
+"Source Code" = "https://github.com/yourname/pii-detection-anonymization"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pii_detection_anonymization*"]
