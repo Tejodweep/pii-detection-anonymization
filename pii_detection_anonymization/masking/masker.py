@@ -28,7 +28,7 @@ from pyspark.sql.types import StringType
 DEFAULT_MASK_MAP: Dict[str, Tuple[str, str]] = {
     "EMAIL": (r"[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}", "[EMAIL]"),
     "PHONE": (r"(\+?1[\s\-.]?)?\(?\d{3}\)?[\s\-.]?\d{3}[\s\-.]?\d{4}", "[PHONE]"),
-    "NAME":  (r"\b[A-Z][a-z]+\s[A-Z][a-z]+\b", "[NAME]"),
+    "NAME":     (r"(?<![.!?]\s)(?<!^)\b[A-Z][a-z]+(?:\s[A-Z][a-z]+)+\b", "[NAME]"),
 }
 
 

@@ -24,14 +24,6 @@ from pyspark.sql.types import ArrayType, StringType
 
 from .base_detector import BaseDetector
 
-# Lazy-load spaCy so the library can be imported without spaCy installed
-# (as long as the user never instantiates NLPDetector).
-try:
-    import spacy
-    _SPACY_AVAILABLE = True
-except ImportError:
-    _SPACY_AVAILABLE = False
-
 
 # ---------------------------------------------------------------------------
 # Regex fallbacks for email / phone (spaCy NER won't catch these)
@@ -58,7 +50,8 @@ _nlp_model = None  # loaded lazily, cached per Python process
 def _get_nlp():
     global _nlp_model
     if _nlp_model is None:
-        _nlp_model = spacy.load("en_core_web_sm")
+        import spacy                          # imported inside function so it
+        _nlp_model = spacy.load("en_core_web_sm")  # works inside Spark workers
     return _nlp_model
 
 
@@ -104,12 +97,14 @@ class NLPDetector(BaseDetector):
     """
 
     def __init__(self, model: str = "en_core_web_sm"):
-        if not _SPACY_AVAILABLE:
+        try:
+            import spacy                      # verify spaCy is installed at init time
+        except ImportError:
             raise ImportError(
                 "spaCy is not installed. Run: pip install spacy && "
                 "python -m spacy download en_core_web_sm"
             )
-        self._model = model  # stored for reference, actual load happens inside UDF
+        self._model = model                   # actual load happens inside UDF via _get_nlp()
 
     def detect(self, df: DataFrame, column: str) -> DataFrame:
         pii_col     = f"{column}_pii_types"

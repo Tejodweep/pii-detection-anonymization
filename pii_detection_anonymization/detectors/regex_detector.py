@@ -20,7 +20,7 @@ from .base_detector import BaseDetector
 PATTERNS = {
     "EMAIL":    r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+",
     "PHONE":    r"(\+?\d{1,3}[\s\-.])?(\(?\d{3}\)?[\s\-.])\d{3}[\s\-.]\d{4}",
-    "NAME":     r"\b[A-Z][a-z]+\s[A-Z][a-z]+\b",
+    "NAME": r"(?<![.!?]\s)(?<!^)\b[A-Z][a-z]+(?:\s[A-Z][a-z]+)+\b",
     "LOCATION": r"\b(?:in|at|from|near|city|town|village)\s[A-Z][a-zA-Z]+\b",
 }
 
